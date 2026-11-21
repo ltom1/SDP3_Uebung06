@@ -102,10 +102,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Album.cpp" />
+    <ClCompile Include="Collection.cpp" />
+    <ClCompile Include="DurationVisitor.cpp" />
+    <ClCompile Include="MusicPlayer.cpp" />
+    <ClCompile Include="PlaylistElement.cpp" />
+    <ClCompile Include="PlaylistFactory.cpp" />
+    <ClCompile Include="PrintVisitor.cpp" />
+    <ClCompile Include="SearchVisitor.cpp" />
+    <ClCompile Include="Song.cpp" />
+    <ClCompile Include="SongRepository.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Album.h" />
+    <ClInclude Include="Collection.h" />
+    <ClInclude Include="DurationVisitor.h" />
+    <ClInclude Include="IPlaylistVisitor.h" />
+    <ClInclude Include="MusicPlayer.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="PlaylistElement.h" />
+    <ClInclude Include="PlaylistFactory.h" />
+    <ClInclude Include="PrintVisitor.h" />
+    <ClInclude Include="SearchVisitor.h" />
+    <ClInclude Include="Song.h" />
+    <ClInclude Include="SongRepository.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

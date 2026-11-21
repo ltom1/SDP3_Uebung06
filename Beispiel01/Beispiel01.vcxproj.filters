@@ -2,6 +2,36 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="MusicPlayer.cpp">
+      <Filter>Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="PrintVisitor.cpp">
+      <Filter>Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchVisitor.cpp">
+      <Filter>Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="DurationVisitor.cpp">
+      <Filter>Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaylistFactory.cpp">
+      <Filter>Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="SongRepository.cpp">
+      <Filter>Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaylistElement.cpp">
+      <Filter>Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Song.cpp">
+      <Filter>Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Album.cpp">
+      <Filter>Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Collection.cpp">
+      <Filter>Implementation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Implementation">
@@ -13,5 +43,46 @@
     <Filter Include="Resource Files">
       <UniqueIdentifier>{e09f3b65-f47e-48d8-8aa7-c376f0b06fbb}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IPlaylistVisitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintVisitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchVisitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DurationVisitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaylistFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SongRepository.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaylistElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Song.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Album.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Collection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
