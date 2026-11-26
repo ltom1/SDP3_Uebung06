@@ -102,21 +102,17 @@ Als Basisklasse aller Basisklassen dient wieder die \textbf{Object} Klasse.\\
 
 Für das Speichern der Musik-Medien wird ein \textbf{Composite}-Pattern verwendet. \textbf{PlaylistElement} ist dabei die gemeinsame abstrakte Basisklasse. Da jedes Medium einen Namen besitzen muss, wird dieser auch in \textbf{PlaylistElement} implementiert.\\
 
-Alle \textbf{PlaylistElement}e werden mit der \textbf{PlaylistFactory}, einer einfachen \textbf{Factory}-Klasse, erzeugt.\\
+Alle \textbf{PlaylistElement}e werden mit der \textbf{PlaylistFactory}, einer einfachen \textbf{Factory}-Klasse, erzeugt. \textbf{PlaylistFactory} ist als \textbf{Singleton}-Klasse implementiert. Das wird durch die template-Basisklasse \textbf{SingletonBase} erreicht.\\
 
 Der allgemeine Container für Musik-Medien ist eine \textbf{Collection}, in der beliebig viele \textbf{PlaylistElement} shared\_ptr gespeichert sind. Dort können beliebig neue Elemente hinzugefügt und wieder entfernt werden.\\
 
-Ein \textbf{Album} ist insofern speziell, da es nur \textbf{Song}s speichern kann und keine anderen Musik-Medien. Ein \textbf{Song} muss immer zu einem \textbf{Album} gehören und kann nicht ohne \textbf{Album} existieren, da der Interpret über das \textbf{Album} gespeichert wird. Die Dauer in Sekunden (kann dann in die gefragten Minuten und Sekunden umgerechnet werden) und der Name des Songs werden natürlich extra gespeichert. \textbf{Song} und \textbf{Album} sind somit absichtlich fest miteinander verbunden (und sogar \textit{friend}). Beim Konstruieren eines \textbf{Song}s muss das zugehörige \textbf{Album} mitgegeben werden, in dem mit der privaten \textbf{Add}-Methode der \textbf{Song} registriert wird. Im \textbf{Song} muss auch eine Referenz auf das \textbf{Album} gespeichert werden, damit der Interpret des \textbf{Song}s ermittelt werden kann.\\ 
+Ein \textbf{Album} ist insofern speziell, da es nur \textbf{Song}s speichern kann und keine anderen Musik-Medien. Ein \textbf{Song} gehört immer zu einem \textbf{Album}, wenn das \textbf{Album} aus irgendeinem Grund nicht mehr existiert, ist der Interpret und das \textbf{Album} des \textbf{Song}s unbekannt.\\ 
+
+Die Dauer des \textbf{Song}s wird in Sekunden gespeichert und kann dann in die gefragten Minuten und Sekunden umgerechnet werden. Der Name des Songs wird natürlich auch gespeichert.\\ \textbf{Song} und \textbf{Album} sind somit absichtlich fest miteinander verbunden (und sogar \textit{friend}). Beim Konstruieren eines \textbf{Song}s muss das zugehörige \textbf{Album} mitgegeben werden, in dem mit der privaten \textbf{Add}-Methode der gerade erstellte \textbf{Song} registriert wird. Im \textbf{Song} muss auch eine Referenz auf das \textbf{Album} gespeichert werden.\\ 
 
 Würde man hier in beide Richtungen shared\_ptr verwenden, so hätte man ein Problem mit zyklischer Abhängigkeit und müsste die Verbindungen immer wieder explizit aufbrechen, sonst kommt es zu Memory-Leaks $\rightarrow$ nicht RAII-konform.\\
 
-Deswegen wird eine der Verbindungen mittels weak\_ptr realisiert. Im \textbf{Song} kann man das nicht machen, da dann evtl. ein \textbf{Song} ohne \textbf{Album} existieren könnte, was explizit verboten ist. Wenn \textbf{Album} eine Liste aus weak\_ptr hält, dann würde ein \textbf{Song} evtl. beim Konstruieren direkt wieder aufgelöst werden, da nichts auf ihn zeigt.\\
-
-Um dieses Problem zu lösen, gibt es ein \textbf{SongRepository}, das als Container für alle erstellten \textbf{Song}s dient. Dort werden shared\_ptr gespeichert und die \textbf{Song}s bleiben am Leben. Wenn ein \textbf{Song} entgültig gelöscht werden soll, dann muss er auch aus diesem Repository gelöscht werden.\\
-
-\textbf{PlaylistFactory} fügt beim Erzeugen eines \textbf{Song}s den \textbf{Song} zum \textbf{SongRepository} hinzu.\\
-
-\textbf{PlaylistFactory} und \textbf{SongRepository} sind als \textbf{Singleton}-Klassen implementiert. Das wird durch die template-Basisklasse \textbf{SingletonBase} erreicht.\\
+Deswegen wird eine der Verbindungen mittels weak\_ptr realisiert. Somit hat ein \textbf{Song} nur einen weak\_ptr auf sein zugehöriges \textbf{Album}. Wird das \textbf{Album} also gelöscht, sind Interpret und \textbf{Album} im \textbf{Song} unbekannt. Im \textbf{Album} müssen shared\_ptr gespeichert werden, da ein \textbf{Song} ansonsten evtl. beim Konstruieren direkt wieder aufgelöst wird, da nichts auf ihn zeigt.\\
 
 Um Operationen auf \textbf{PlaylistElement}en durchzuführen, wird das \textbf{Visitor}-Pattern verwendet. Es gibt mehrere \textbf{IPlaylistVisitor}s, die durch die \textbf{Composite}-Struktur von den \textbf{PlaylistElement}en durchgereicht werden.\\
 
